@@ -6,8 +6,11 @@ import dev.mmartins.wishlistapi.infrastructure.persistence.dao.JpaWishlistReposi
 import dev.mmartins.wishlistapi.infrastructure.persistence.document.WishlistDocument;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 @Repository
 public class WishlistRepositoryImpl implements WishlistRepository {
@@ -28,6 +31,13 @@ public class WishlistRepositoryImpl implements WishlistRepository {
     public Optional<Wishlist> findById(final String id) {
         return jpaWishlistRepository.findById(UUID.fromString(id))
                 .map(this::toDomain);
+    }
+
+    @Override
+    public List<Wishlist> findAll() {
+        return StreamSupport.stream(jpaWishlistRepository.findAll().spliterator(), false)
+                .map(this::toDomain)
+                .toList();
     }
 
     private Wishlist toDomain(final WishlistDocument document) {
