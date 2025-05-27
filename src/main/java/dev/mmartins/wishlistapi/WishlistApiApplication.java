@@ -1,4 +1,4 @@
-package dev.mmartins.wishlist_api;
+package dev.mmartins.wishlistapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

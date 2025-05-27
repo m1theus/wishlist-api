@@ -1,4 +1,4 @@
-package dev.mmartins.wishlist_api;
+package dev.mmartins.wishlistapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
