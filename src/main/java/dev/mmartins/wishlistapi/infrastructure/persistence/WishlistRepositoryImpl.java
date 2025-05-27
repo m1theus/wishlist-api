@@ -6,6 +6,9 @@ import dev.mmartins.wishlistapi.infrastructure.persistence.dao.JpaWishlistReposi
 import dev.mmartins.wishlistapi.infrastructure.persistence.document.WishlistDocument;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Repository
 public class WishlistRepositoryImpl implements WishlistRepository {
 
@@ -16,9 +19,15 @@ public class WishlistRepositoryImpl implements WishlistRepository {
     }
 
     @Override
-    public Wishlist create(final Wishlist wishlist) {
+    public Wishlist save(final Wishlist wishlist) {
         var document = jpaWishlistRepository.save(toDocument(wishlist));
         return toDomain(document);
+    }
+
+    @Override
+    public Optional<Wishlist> findById(final String id) {
+        return jpaWishlistRepository.findById(UUID.fromString(id))
+                .map(this::toDomain);
     }
 
     private Wishlist toDomain(final WishlistDocument document) {

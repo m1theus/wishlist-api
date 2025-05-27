@@ -19,6 +19,6 @@ public class CreateWishlistUseCase {
     public Wishlist execute(final WishlistRequest input) {
         final var wishlist = new Wishlist(input);
         validateWishlistUseCase.execute(wishlist);
-        return wishlistRepository.create(wishlist);
+        return wishlistRepository.save(wishlist);
     }
 }

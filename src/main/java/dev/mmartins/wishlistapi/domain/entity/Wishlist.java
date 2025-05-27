@@ -7,9 +7,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -33,19 +33,28 @@ public class Wishlist {
     }
 
     public Wishlist(final WishlistRequest input) {
-        this(null, input.name(), input.owner(), List.of());
+        this(null, input.name(), input.owner(), new ArrayList<>());
     }
 
     public static Wishlist from(final WishlistDocument document) {
         var products = document.getProducts()
                 .stream()
                 .map(Product::from)
-                .toList();
+                .collect(Collectors.toCollection(ArrayList::new));
         return new Wishlist(document.getId().toString(),
                 document.getName(), document.getOwner(), products, document.getCreatedAt(), document.getUpdatedAt());
     }
 
     public boolean hasReachedLimit() {
         return products.size() >= PRODUCTS_SIZE_LIMIT;
+    }
+
+    public boolean productAlreadyExists(final String productId) {
+        return products.stream()
+                .anyMatch(p -> p.getId().equals(productId));
+    }
+
+    public void addProduct(final Product product) {
+        products.add(product);
     }
 }

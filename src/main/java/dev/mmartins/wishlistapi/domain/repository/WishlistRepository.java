@@ -2,6 +2,9 @@ package dev.mmartins.wishlistapi.domain.repository;
 
 import dev.mmartins.wishlistapi.domain.entity.Wishlist;
 
+import java.util.Optional;
+
 public interface WishlistRepository {
-    Wishlist create(final Wishlist wishlist);
+    Wishlist save(final Wishlist wishlist);
+    Optional<Wishlist> findById(final String id);
 }

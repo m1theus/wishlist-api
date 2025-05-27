@@ -11,8 +11,8 @@ public class WishlistNotFoundException extends RuntimeException {
         this.status = HttpStatus.NOT_FOUND;
     }
 
-    public WishlistNotFoundException(String message) {
-        super(message);
+    public WishlistNotFoundException(final String wishlistId) {
+        super(String.format("Wishlist with id %s not found", wishlistId));
         this.status = HttpStatus.NOT_FOUND;
     }
 }
