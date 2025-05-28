@@ -11,14 +11,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class AddProductToWishlistUseCase {
     private final WishlistRepository wishlistRepository;
+    private final ValidateWishlistUseCase validateWishlistUseCase;
 
-    public AddProductToWishlistUseCase(final WishlistRepository wishlistRepository) {
+    public AddProductToWishlistUseCase(final WishlistRepository wishlistRepository,
+                                       final ValidateWishlistUseCase validateWishlistUseCase) {
         this.wishlistRepository = wishlistRepository;
+        this.validateWishlistUseCase = validateWishlistUseCase;
     }
 
     public Wishlist execute(final AddProductRequest input) {
         final var wishlist = wishlistRepository.findById(input.wishlistId())
                 .orElseThrow(() -> new WishlistNotFoundException(input.wishlistId()));
+
+        validateWishlistUseCase.execute(wishlist);
 
         if (wishlist.productAlreadyExists(input.productId())) {
             throw new ProductAlreadyInWishlistException(input.productId());

@@ -4,6 +4,7 @@ import dev.mmartins.wishlistapi.entrypoint.rest.WishlistRequest;
 import dev.mmartins.wishlistapi.infrastructure.persistence.document.WishlistDocument;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -14,12 +15,13 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Wishlist {
     private static final int PRODUCTS_SIZE_LIMIT = 20;
     private String id;
     private String name;
     private String owner;
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
