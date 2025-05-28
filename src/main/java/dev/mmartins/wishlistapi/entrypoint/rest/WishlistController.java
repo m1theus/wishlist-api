@@ -1,6 +1,7 @@
 package dev.mmartins.wishlistapi.entrypoint.rest;
 
 import dev.mmartins.wishlistapi.application.usecase.AddProductToWishlistUseCase;
+import dev.mmartins.wishlistapi.application.usecase.CheckIfContainsProductInWishlistUseCase;
 import dev.mmartins.wishlistapi.application.usecase.CreateWishlistUseCase;
 import dev.mmartins.wishlistapi.application.usecase.ListAllWishlistsUseCase;
 import dev.mmartins.wishlistapi.application.usecase.RemoveProductFromWishlistUseCase;
@@ -24,19 +25,31 @@ public class WishlistController {
     private final AddProductToWishlistUseCase addProductToWishlistUseCase;
     private final ListAllWishlistsUseCase listAllWishlistsUseCase;
     private final RemoveProductFromWishlistUseCase removeProductFromWishlistUseCase;
+    private final CheckIfContainsProductInWishlistUseCase checkIfContainsProductInWishlistUseCase;
 
     public WishlistController(final CreateWishlistUseCase createWishlistUseCase,
                               final ListAllWishlistsUseCase listAllWishlistsUseCase,
-                              final AddProductToWishlistUseCase addProductToWishlistUseCase, RemoveProductFromWishlistUseCase removeProductFromWishlistUseCase) {
+                              final AddProductToWishlistUseCase addProductToWishlistUseCase,
+                              final RemoveProductFromWishlistUseCase removeProductFromWishlistUseCase,
+                              final CheckIfContainsProductInWishlistUseCase checkIfContainsProductInWishlistUseCase) {
         this.createWishlistUseCase = createWishlistUseCase;
         this.listAllWishlistsUseCase = listAllWishlistsUseCase;
         this.addProductToWishlistUseCase = addProductToWishlistUseCase;
         this.removeProductFromWishlistUseCase = removeProductFromWishlistUseCase;
+        this.checkIfContainsProductInWishlistUseCase = checkIfContainsProductInWishlistUseCase;
     }
 
     @GetMapping
     public ResponseEntity<List<Wishlist>> listAllWishlists() {
         return ResponseEntity.ok(listAllWishlistsUseCase.execute());
+    }
+
+    @GetMapping("/wishlists/{wishlistId}/products/{productId}")
+    public ResponseEntity<Boolean> listWishlistsByProductId(@PathVariable("wishlistId") final String wishlistId,
+                                                                   @PathVariable("productId") final String productId) {
+
+        final var output = checkIfContainsProductInWishlistUseCase.execute(wishlistId, productId);
+        return ResponseEntity.ok().body(output);
     }
 
     @PostMapping

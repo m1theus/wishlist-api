@@ -61,4 +61,9 @@ public class Wishlist {
     public void removeProduct(final String productId) {
         products.removeIf(p -> p.getId().equals(productId));
     }
+
+    public boolean containsProduct(final String productId) {
+        return products.stream()
+                .anyMatch(p -> p.getId().equals(productId));
+    }
 }
