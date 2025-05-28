@@ -3,9 +3,11 @@ package dev.mmartins.wishlistapi.entrypoint.rest;
 import dev.mmartins.wishlistapi.application.usecase.AddProductToWishlistUseCase;
 import dev.mmartins.wishlistapi.application.usecase.CreateWishlistUseCase;
 import dev.mmartins.wishlistapi.application.usecase.ListAllWishlistsUseCase;
+import dev.mmartins.wishlistapi.application.usecase.RemoveProductFromWishlistUseCase;
 import dev.mmartins.wishlistapi.domain.entity.Wishlist;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,13 +23,15 @@ public class WishlistController {
     private final CreateWishlistUseCase createWishlistUseCase;
     private final AddProductToWishlistUseCase addProductToWishlistUseCase;
     private final ListAllWishlistsUseCase listAllWishlistsUseCase;
+    private final RemoveProductFromWishlistUseCase removeProductFromWishlistUseCase;
 
     public WishlistController(final CreateWishlistUseCase createWishlistUseCase,
                               final ListAllWishlistsUseCase listAllWishlistsUseCase,
-                              final AddProductToWishlistUseCase addProductToWishlistUseCase) {
+                              final AddProductToWishlistUseCase addProductToWishlistUseCase, RemoveProductFromWishlistUseCase removeProductFromWishlistUseCase) {
         this.createWishlistUseCase = createWishlistUseCase;
         this.listAllWishlistsUseCase = listAllWishlistsUseCase;
         this.addProductToWishlistUseCase = addProductToWishlistUseCase;
+        this.removeProductFromWishlistUseCase = removeProductFromWishlistUseCase;
     }
 
     @GetMapping
@@ -46,5 +50,12 @@ public class WishlistController {
                                                          @RequestBody final AddProductRequest addProductRequest) {
         final var output = addProductToWishlistUseCase.execute(addProductRequest.With(wishlistId));
         return ResponseEntity.ok(output);
+    }
+
+    @DeleteMapping("/{wishlistId}/products/{productId}")
+    public ResponseEntity<Void> removeProductFromWishlist(@PathVariable("wishlistId") final String wishlistId,
+                                                          @PathVariable("productId") final String productId) {
+        removeProductFromWishlistUseCase.execute(wishlistId, productId);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -1,7 +1,9 @@
 package dev.mmartins.wishlistapi.entrypoint.rest;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public record AddProductRequest(
-        String wishlistId,
+        @JsonIgnore String wishlistId,
         String productId
 ) {
     AddProductRequest With(final String wishlistId) {

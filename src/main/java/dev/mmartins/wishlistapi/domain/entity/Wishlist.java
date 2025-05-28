@@ -57,4 +57,8 @@ public class Wishlist {
     public void addProduct(final Product product) {
         products.add(product);
     }
+
+    public void removeProduct(final String productId) {
+        products.removeIf(p -> p.getId().equals(productId));
+    }
 }
