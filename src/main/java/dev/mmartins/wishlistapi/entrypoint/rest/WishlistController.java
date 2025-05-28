@@ -44,12 +44,12 @@ public class WishlistController {
         return ResponseEntity.ok(listAllWishlistsUseCase.execute());
     }
 
-    @GetMapping("/wishlists/{wishlistId}/products/{productId}")
-    public ResponseEntity<Boolean> listWishlistsByProductId(@PathVariable("wishlistId") final String wishlistId,
+    @GetMapping("/{wishlistId}/products/{productId}")
+    public ResponseEntity<IsProductInWishlistResponse> listWishlistsByProductId(@PathVariable("wishlistId") final String wishlistId,
                                                                    @PathVariable("productId") final String productId) {
 
         final var output = checkIfContainsProductInWishlistUseCase.execute(wishlistId, productId);
-        return ResponseEntity.ok().body(output);
+        return ResponseEntity.ok().body(new IsProductInWishlistResponse(output));
     }
 
     @PostMapping
