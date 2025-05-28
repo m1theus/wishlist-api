@@ -8,11 +8,11 @@ public class WishlistLimitExceededException extends RuntimeException {
     private HttpStatus status;
 
     public WishlistLimitExceededException() {
-        this.status = HttpStatus.TOO_MANY_REQUESTS;
+        this.status = HttpStatus.BAD_REQUEST;
     }
 
     public WishlistLimitExceededException(String message) {
         super(message);
-        this.status = HttpStatus.TOO_MANY_REQUESTS;
+        this.status = HttpStatus.BAD_REQUEST;
     }
 }
