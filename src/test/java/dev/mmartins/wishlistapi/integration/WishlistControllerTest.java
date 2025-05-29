@@ -118,7 +118,8 @@ public class WishlistControllerTest {
     @Test
     void shouldAddProductToWishlists() throws Exception {
         var wishlist = WishlistHelper.mockWishlist(1);
-        var request = new AddProductRequest(wishlist.getId(), "product_0");
+        String productId = wishlist.getProducts().stream().findFirst().get().getId();
+        var request = new AddProductRequest(wishlist.getId(), productId);
         when(addProductToWishlistUseCase.execute(any())).thenReturn(wishlist);
 
         mockMvc.perform(post("/wishlists/{wishlistId}/products", wishlist.getId())
@@ -129,7 +130,7 @@ public class WishlistControllerTest {
                 .andExpect(jsonPath("$.name").value("wishlist_name"))
                 .andExpect(jsonPath("$.owner").value("wishlist_owner"))
                 .andExpect(jsonPath("$.products").isArray())
-                .andExpect(jsonPath("$.products[0].id").value("product_0"));
+                .andExpect(jsonPath("$.products[0].id").value(productId));
     }
 
     @Test

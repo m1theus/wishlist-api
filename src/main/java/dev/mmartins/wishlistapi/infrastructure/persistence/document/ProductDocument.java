@@ -20,8 +20,10 @@ public class ProductDocument {
     private UUID id =
             UUID.randomUUID();
 
+    private String name;
+
     public static ProductDocument from(final Product product) {
-        return new ProductDocument();
+        return new ProductDocument(UUID.fromString(product.getId()), product.getName());
     }
 
 }

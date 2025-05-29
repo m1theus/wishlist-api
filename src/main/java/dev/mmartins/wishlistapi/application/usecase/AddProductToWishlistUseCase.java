@@ -29,7 +29,8 @@ public class AddProductToWishlistUseCase {
             throw new ProductAlreadyInWishlistException(input.productId());
         }
 
-        final var product = new Product(input.productId());
+        // TODO
+        final var product = new Product(input.productId(), "");
         wishlist.addProduct(product);
 
         return wishlistRepository.save(wishlist);

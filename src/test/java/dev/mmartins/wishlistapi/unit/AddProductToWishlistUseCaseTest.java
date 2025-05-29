@@ -74,12 +74,13 @@ public class AddProductToWishlistUseCaseTest {
     void shouldNotAddProductToWishlistIfProductAlreadyExists() {
         // given
         var wishlistInput = WishlistHelper.mockWishlist(2);
+        var productId = wishlistInput.getProducts().getFirst().getId();
         when(wishlistRepository.findById(wishlistInput.getId())).thenReturn(Optional.of(wishlistInput));
         when(wishlistRepository.save(any(Wishlist.class))).thenReturn(wishlistInput);
 
         // when + then
         var exception = Assertions.assertThrows(ProductAlreadyInWishlistException.class,
-                () -> addProductToWishlistUseCase.execute(new AddProductRequest(wishlistInput.getId(), "product_1")));
+                () -> addProductToWishlistUseCase.execute(new AddProductRequest(wishlistInput.getId(), productId)));
         assertNotNull(exception);
         verify(wishlistRepository).findById(wishlistInput.getId());
         verify(validateWishlistUseCase).execute(wishlistInput);

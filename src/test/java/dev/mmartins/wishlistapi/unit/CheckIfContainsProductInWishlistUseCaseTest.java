@@ -27,11 +27,12 @@ public class CheckIfContainsProductInWishlistUseCaseTest {
     @Test
     void shouldWishlistContainsProduct() {
         // given
-        Wishlist wishlist = WishlistHelper.mockWishlist(2);
+        var wishlist = WishlistHelper.mockWishlist(2);
+        var productId = wishlist.getProducts().getFirst().getId();
         Mockito.when(wishlistRepository.findById(wishlist.getId())).thenReturn(Optional.of(wishlist));
 
         // then
-        var response = checkIfContainsProductInWishlistUseCase.execute(wishlist.getId(), "product_1");
+        var response = checkIfContainsProductInWishlistUseCase.execute(wishlist.getId(), productId);
 
         // then
         Assertions.assertTrue(response);
@@ -43,10 +44,11 @@ public class CheckIfContainsProductInWishlistUseCaseTest {
     void shouldWishlistNotContainsProduct() {
         // given
         Wishlist wishlist = WishlistHelper.mockWishlist(2);
+        var invalidProductId = "5280bc9a-1856-417c-9941-456f7b2e2fe7";
         Mockito.when(wishlistRepository.findById(wishlist.getId())).thenReturn(Optional.of(wishlist));
 
         // then
-        var response = checkIfContainsProductInWishlistUseCase.execute(wishlist.getId(), "product_3");
+        var response = checkIfContainsProductInWishlistUseCase.execute(wishlist.getId(), invalidProductId);
 
         // then
         Assertions.assertFalse(response);

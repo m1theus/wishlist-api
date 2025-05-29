@@ -28,10 +28,11 @@ public class RemoveProductFromWishlistUseCaseTest {
     void shouldRemoveProductFromWishlist() {
         // given
         var wishlist = WishlistHelper.mockWishlist(2);
+        var productId = wishlist.getProducts().getFirst().getId();
         Mockito.when(wishlistRepository.findById(wishlist.getId())).thenReturn(Optional.of(wishlist));
 
         // when
-        removeProductFromWishlistUseCase.execute(wishlist.getId(), "product_1");
+        removeProductFromWishlistUseCase.execute(wishlist.getId(), productId);
 
         // then
         Assertions.assertEquals(1, wishlist.getProducts().size());
