@@ -41,8 +41,6 @@ dependencies {
 	testImplementation "org.testcontainers:mongodb:1.19.7"
 	testImplementation "org.testcontainers:junit-jupiter:1.19.7"
 
-
-
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 

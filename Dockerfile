@@ -1,22 +1,17 @@
 # build
-FROM ghcr.io/graalvm/graalvm-ce:latest as builder
-
-RUN gu install native-image
+FROM eclipse-temurin:21-jdk-alpine AS builder
 
 WORKDIR /app
 
 COPY . .
 
-RUN ./gradlew -Pnative -DskipTests package
+RUN ./gradlew clean bootJar --no-daemon
 
 # runtime
-FROM alpine:3.19
-
-RUN apk add --no-cache libc6-compat
+FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /app
 
-COPY --from=builder /app/target/wishlist-api .
+COPY --from=builder /app/build/libs/*.jar app.jar
 
-EXPOSE 8080
-ENTRYPOINT ["./wishlist-api"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
