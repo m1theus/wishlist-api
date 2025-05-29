@@ -11,6 +11,11 @@ public abstract class AbstractBaseTestContainers {
     @Container
     static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:7.0.5");
 
+    static {
+        mongoDBContainer.start();
+        System.setProperty("spring.data.mongodb.uri", mongoDBContainer.getReplicaSetUrl());
+    }
+
     @DynamicPropertySource
     static void setProperties(DynamicPropertyRegistry registry) {
         registry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
