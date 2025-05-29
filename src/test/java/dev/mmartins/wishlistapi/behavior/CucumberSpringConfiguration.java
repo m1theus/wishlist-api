@@ -1,6 +1,7 @@
 package dev.mmartins.wishlistapi.behavior;
 
 
+import dev.mmartins.wishlistapi.AbstractBaseTestContainers;
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.suite.api.IncludeEngines;
@@ -14,6 +15,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Suite
 @IncludeEngines("cucumber")
-public class CucumberSpringConfiguration {
+public class CucumberSpringConfiguration extends AbstractBaseTestContainers {
 }
 
