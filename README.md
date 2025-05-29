@@ -38,7 +38,6 @@ src
 │   ├── java
 │   │   └── dev.mmartins.wishlistapi.behavior
 │   │       ├── steps           → Cucumber Step Definitions
-│   │       ├── CucumberConfigTests.java
 │   │       └── CucumberSpringConfiguration.java
 │   └── resources
 │       └── dev/mmartins/wishlistapi/behavior/features
