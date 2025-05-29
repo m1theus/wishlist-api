@@ -30,10 +30,10 @@ src
 ├── main
 │   ├── java
 │   │   └── dev.mmartins.wishlistapi
-│   │       ├── domain         → Entities & Repositories (Enterprise Business Rules)
+│   │       ├── domain          → Entities & Repositories (Enterprise Business Rules)
 │   │       ├── application     → Use Cases (Application Business Rules)
 │   │       ├── infrastructure  → MongoDB Adapters
-│   │       └── interface_      → REST Controllers & Swagger Config
+│   │       └── entrypoint      → REST Controllers
 ├── test
 │   ├── java
 │   │   └── dev.mmartins.wishlistapi.behavior
