@@ -1,5 +1,5 @@
 
-# 📜 Wishlist API
+# 📜 Wishlist API  [![CI](https://github.com/m1theus/wishlist-api/actions/workflows/ci.yml/badge.svg)](https://github.com/m1theus/wishlist-api/actions/workflows/ci.yml) ![Coverage](.github/badges/jacoco.svg) ![Branches](.github/badges/branches.svg)
 
 A microservice that allows users to manage wishlists and their products.
 
