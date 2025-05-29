@@ -2,8 +2,10 @@ package dev.mmartins.wishlistapi.application.usecase;
 
 import dev.mmartins.wishlistapi.application.exception.WishlistNotFoundException;
 import dev.mmartins.wishlistapi.domain.repository.WishlistRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class RemoveProductFromWishlistUseCase {
     private final WishlistRepository wishlistRepository;
@@ -17,5 +19,6 @@ public class RemoveProductFromWishlistUseCase {
 
         wishlist.removeProduct(productId);
         wishlistRepository.save(wishlist);
+        log.info("Removed product={} from wishlist={}", productId, wishlistId);
     }
 }

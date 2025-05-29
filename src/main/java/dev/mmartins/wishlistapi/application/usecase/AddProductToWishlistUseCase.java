@@ -6,8 +6,10 @@ import dev.mmartins.wishlistapi.domain.entity.Product;
 import dev.mmartins.wishlistapi.domain.entity.Wishlist;
 import dev.mmartins.wishlistapi.domain.repository.WishlistRepository;
 import dev.mmartins.wishlistapi.entrypoint.rest.AddProductRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class AddProductToWishlistUseCase {
     private final WishlistRepository wishlistRepository;
@@ -29,10 +31,9 @@ public class AddProductToWishlistUseCase {
             throw new ProductAlreadyInWishlistException(input.productId());
         }
 
-        // TODO
-        final var product = new Product(input.productId(), "");
+        final var product = new Product(input.productId(), "PRODUCT_NAME");
         wishlist.addProduct(product);
-
+        log.info("Added product={} to wishlist={}", product.getId(), wishlist.getId());
         return wishlistRepository.save(wishlist);
     }
 }

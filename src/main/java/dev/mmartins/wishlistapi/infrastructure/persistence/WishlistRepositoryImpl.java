@@ -5,14 +5,12 @@ import dev.mmartins.wishlistapi.domain.repository.WishlistRepository;
 import dev.mmartins.wishlistapi.infrastructure.persistence.dao.JpaWishlistRepository;
 import dev.mmartins.wishlistapi.infrastructure.persistence.document.WishlistDocument;
 import org.springframework.stereotype.Repository;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.StreamSupport;
 
-@Validated
 @Repository
 public class WishlistRepositoryImpl implements WishlistRepository {
 

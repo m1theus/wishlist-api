@@ -2,7 +2,6 @@ package dev.mmartins.wishlistapi.infrastructure.persistence.document;
 
 import dev.mmartins.wishlistapi.domain.entity.Wishlist;
 import io.micrometer.common.util.StringUtils;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +21,7 @@ import java.util.UUID;
 public class WishlistDocument {
     @Id
     private UUID id = UUID.randomUUID();
-    @NotBlank
     private String name;
-    @NotBlank
     private String owner;
     private List<ProductDocument> products;
     private LocalDateTime createdAt;
